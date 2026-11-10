@@ -1,0 +1,31 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.seckilldemo.mapper.SeckillOrderMapper">
+
+<resultMap  id="SeckillOrder" type="com.example.seckilldemo.entity.OrderDetailDTO">
+    <id property="id" column="order_id"/>
+    <result property="userId" column="user_id"/>
+    <result property="username" column="username"/>
+    <result property="productId" column="product_id"/>
+    <result property="productName" column="product_name"/>
+    <result property="price" column="price"/>
+    <result property="createTime" column="create_time"/>
+    
+</resultMap>
+    <select id="selectOrderDetails" resultMap="SeckillOrder">
+        SELECT
+            o.id AS order_id,
+            o.user_id,
+            u.username,
+            o.product_id,
+            p.name AS product_name,
+            p.price,
+            o.create_time
+            FROM seckill_order o
+            LEFT JOIN  sys_user u ON o.user_id=u.id
+            LEFT JOIN product p ON o.product_id=p.id
+    </select>
+
+
+</mapper>
